@@ -45,6 +45,11 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'email';
+        
+        $value = request() -> input('identify');
+        $filter = filter_var($value, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
+        request() -> merge ([$filter => $value]);
+
+        return $filter;
     }
 }
